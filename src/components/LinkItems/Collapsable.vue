@@ -76,9 +76,9 @@ export default {
       return `section_${this.title.replaceAll(' ', '-').toLowerCase()}`;
     },
     itemCount() {
-      const items = this.$slots.default ? this.$slots.default() : [];
-      const itemNodes = items.filter(n => n.componentInstance && n.componentInstance.$options.name === 'Item');
-      return itemNodes.length;
+      if (!this.$slots.default) return 0;
+      const nodes = this.$slots.default();
+      return nodes.filter(n => n && n.componentOptions && n.componentOptions.tag && n.componentOptions.tag.indexOf('Item') >= 0).length;
     },
     showViewAll() { return this.uniqueKey && this.itemCount > 0; },
     /* Used to fetch initial collapse state */

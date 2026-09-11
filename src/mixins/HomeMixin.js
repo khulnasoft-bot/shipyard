@@ -2,10 +2,17 @@
  * Mixin for all homepages (default home, minimal home, workspace, etc)
  */
 
-import Defaults, { localStorageKeys, iconCdns } from '@/utils/defaults';
+import Defaults, {
+  localStorageKeys,
+  iconCdns,
+} from '@/utils/defaults';
 import Keys from '@/utils/StoreMutations';
 import { searchTiles } from '@/utils/Search';
 import { checkItemVisibility } from '@/utils/CheckItemVisibility';
+
+const subPageRegex = new RegExp(
+  /(home|workspace|minimal)\/[a-zA-Z0-9-]+/g,
+);
 
 const HomeMixin = {
   props: {
@@ -50,6 +57,20 @@ const HomeMixin = {
   async created() {
     this.loadUpConfig();
   },
+  mounted() {
+    this.$keyboardShortcuts = (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'i') {
+        e.preventDefault();
+        this.$store.commit(Keys.SET_EDIT_MODE, !this.isEditMode);
+      }
+    };
+    window.addEventListener('keydown', this.$keyboardShortcuts);
+  },
+  beforeDestroy() {
+    if (this.$keyboardShortcuts) {
+      window.removeEventListener('keydown', this.$keyboardShortcuts);
+    }
+  },
   methods: {
     /* When page loaded / sub-page changed, initiate config fetch */
     async loadUpConfig() {
@@ -59,7 +80,7 @@ const HomeMixin = {
     /* Based on the current route, get which config to display, null will use default */
     determineConfigFile() {
       const pagePath = this.$router.currentRoute.path;
-      const isSubPage = new RegExp((/(home|workspace|minimal)\/[a-zA-Z0-9-]+/g)).test(pagePath);
+      const isSubPage = subPageRegex.test(pagePath);
       const subPageName = isSubPage ? pagePath.split('/').pop() : null;
       return subPageName;
     },
@@ -166,16 +187,16 @@ const HomeMixin = {
     },
     /* If user has a background image, then generate CSS attributes */
     getBackgroundImage() {
-      if (this.appConfig && this.appConfig.backgroundImg) {
-        return `background: url('${this.appConfig.backgroundImg}') no-repeat center fixed;background-size:cover;`;
-      }
-      return '';
+      if (!this.appConfig || !this.appConfig.backgroundImg) return '';
+      return `background: url('${this.appConfig.backgroundImg}') `
+        + 'no-repeat center fixed;background-size:cover;';
     },
     /* Extracts the site name from domain, used for the searching functionality */
     getDomainFromUrl(url) {
       if (!url) return '';
-      const urlPattern = /^(?:https?:\/\/)?(?:w{3}\.)?([a-z\d.-]+)\.(?:[a-z.]{2,10})(?:[/\w.-]*)*/;
-      const domainPattern = url.match(urlPattern);
+      const domainPattern = url.match(
+        /^(?:https?:\/\/)?(?:w{3}\.)?([a-z\d.-]+)\.(?:[a-z.]{2,10})(?:[/\w.-]*)*/,
+      );
       return domainPattern ? domainPattern[1] : '';
     },
   },

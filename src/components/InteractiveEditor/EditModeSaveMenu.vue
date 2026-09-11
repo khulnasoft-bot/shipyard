@@ -1,7 +1,6 @@
 <template>
-  <!-- Intro Info -->
   <div class="edit-mode-bottom-banner">
-    <div class="edit-banner-section intro-container"  v-if="showEditMsg">
+    <div class="edit-banner-section intro-container" v-if="showEditMsg">
       <p class="section-sub-title edit-mode-intro l-1">
         {{ $t('interactive-editor.menu.edit-mode-subtitle') }}
       </p>
@@ -13,7 +12,6 @@
       <AccessError class="no-permission" />
     </div>
     <div class="edit-banner-section empty-space"></div>
-    <!-- Save Buttons -->
     <div class="edit-banner-section save-buttons-container">
       <p class="section-sub-title">
         {{ $t('interactive-editor.menu.config-save-methods-subheading') }}
@@ -50,12 +48,10 @@
         <CancelIcon />
       </Button>
     </div>
-    <!-- Open Modal Buttons -->
     <div class="edit-banner-section edit-config-buttons-container">
       <p class="section-sub-title">
         {{ $t('interactive-editor.menu.edit-site-data-subheading') }}
       </p>
-      <!-- Button to open pageInfo editor -->
       <Button
         :click="openEditPageInfo"
         :disallow="!permissions.allowViewConfig"
@@ -64,7 +60,6 @@
         {{ $t('interactive-editor.menu.edit-page-info-btn') }}
         <PageInfoIcon />
       </Button>
-      <!-- Button to open appConfig editor -->
       <Button
         :click="openEditAppConfig"
         :disallow="!permissions.allowViewConfig"
@@ -73,7 +68,6 @@
         {{ $t('interactive-editor.menu.edit-app-config-btn') }}
         <AppConfigIcon />
       </Button>
-      <!-- Button to open pages editor -->
       <Button
         :click="openEditMultiPages"
         :disallow="!permissions.allowViewConfig"
@@ -83,7 +77,6 @@
         <MultiPagesIcon />
       </Button>
     </div>
-    <!-- Modals for editing appConfig, pageInfo and pages -->
     <EditPageInfo />
     <EditAppConfig />
     <EditMultiPages />
@@ -99,7 +92,6 @@ import EditAppConfig from '@/components/InteractiveEditor/EditAppConfig';
 import EditMultiPages from '@/components/InteractiveEditor/EditMultiPages';
 import { modalNames } from '@/utils/defaults';
 import AccessError from '@/components/Configuration/AccessError';
-
 import SaveLocallyIcon from '@/assets/interface-icons/interactive-editor-save-locally.svg';
 import SaveToDiskIcon from '@/assets/interface-icons/interactive-editor-save-disk.svg';
 import ExportIcon from '@/assets/interface-icons/interactive-editor-export-changes.svg';
@@ -126,15 +118,11 @@ export default {
     AccessError,
   },
   computed: {
-    config() {
-      return this.$store.state.config;
-    },
-    permissions() {
-      // Returns: { allowWriteToDisk, allowSaveLocally, allowViewConfig }
-      return this.$store.getters.permissions;
-    },
+    config() { return this.$store.state.config; },
+    permissions() { return this.$store.getters.permissions; },
     showEditMsg() {
-      return this.permissions.allowWriteToDisk || this.permissions.allowSaveLocally;
+      return this.permissions.allowWriteToDisk
+        || this.permissions.allowSaveLocally;
     },
   },
   methods: {
@@ -162,18 +150,16 @@ export default {
       return { content, trigger: 'hover focus', delay: 250 };
     },
     showToast(message, success) {
-      this.$toasted.show(message, { className: `toast-${success ? 'success' : 'error'}` });
+      this.$toasted.show(message, {
+        className: `toast-${success ? 'success' : 'error'}`,
+      });
     },
     saveLocally() {
       const msg = this.$t('interactive-editor.menu.save-locally-warning');
-      const youSure = confirm(msg); // eslint-disable-line no-alert, no-restricted-globals
-      if (youSure) {
-        this.saveConfigLocally(this.config);
-      }
+      const confirmed = window.confirm(msg);
+      if (confirmed) { this.saveConfigLocally(this.config); }
     },
-    writeToDisk() {
-      this.writeConfigToDisk(this.config);
-    },
+    writeToDisk() { this.writeConfigToDisk(this.config); },
   },
 };
 </script>
@@ -188,81 +174,83 @@ div.edit-mode-bottom-banner {
   bottom: 0;
   width: 100%;
   padding: 0.25rem 0;
-  border-top: 2px solid var(--interactive-editor-color);
-  background: var(--interactive-editor-background-darker);
-  box-shadow: 0 -5px 7px var(--transparent-50);
+  border-top: 1px solid var(--border-subtle);
+  background: linear-gradient(180deg, var(--surface-2), var(--surface-1));
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.4), 0 0 8px rgba(59, 130, 246, 0.1);
   grid-template-columns: 45% 10% 45%;
+  backdrop-filter: blur(8px);
   @include laptop-up { grid-template-columns: 50% 10% 40%; }
   @include monitor-up { grid-template-columns: 40% 30% 30%; }
   @include big-screen-up { grid-template-columns: 25% 50% 25%; }
 
-  /* Main sections */
   .edit-banner-section {
     padding: 0.5rem;
-    height: 90%;
+    height: fit-content;
     display: grid;
-    /* Section sub-titles */
     p.section-sub-title {
       margin: 0;
-      color: var(--interactive-editor-color);
-      font-weight: bold;
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
       cursor: default;
     }
-    /* Intro-text container */
-    &.intro-container  {
-      p.edit-mode-intro {
-        margin: 0;
-        color: var(--interactive-editor-color);
-        cursor: default;
-      }
-      .no-permission {
-        margin: 0;
-        width: auto;
-        padding: 0 0.5rem;
-      }
+    &.intro-container p.edit-mode-intro {
+      margin: 0;
+      color: var(--text-secondary);
+      font-size: 0.8rem;
+      cursor: default;
     }
-    button {
-      margin: 0.25rem;
-      height: stretch;
-      max-height: 3rem;
-    }
-    /* Button containers */
-    &.edit-config-buttons-container {
-      grid-template-columns: repeat(3, 1fr);
-      p.section-sub-title {
-        grid-column-start: span 3;
-      }
-    }
-    &.save-buttons-container {
-      grid-row-start: span 2;
-      grid-template-columns: repeat(2, 1fr);
-      p.section-sub-title {
-        grid-column-start: span 2;
-      }
+    .no-permission {
+      margin: 0;
+      width: auto;
+      padding: 0 0.5rem;
     }
   }
 
-  /* Mobile layout */
-  @include tablet-down {
-    display: flex;
-    flex-direction: column;
-    .edit-banner-section,
-    .edit-banner-section.intro-container {
-      max-width: 90%;
-      width: 100%;
-      margin: 0.2rem auto;
-      flex-direction: column;
+  button {
+    margin: 0.15rem;
+    height: stretch;
+    max-height: 2.5rem;
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--curve-factor);
+    border: 1px solid var(--border-subtle);
+    background: var(--surface-2);
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.15s;
+    &:hover:not(.disallowed) {
+      color: var(--primary);
+      border-color: var(--primary);
+      background: rgba(59, 130, 246, 0.1);
+    }
+    &.disallowed {
+      opacity: 0.4;
+      cursor: not-allowed;
     }
   }
-  /* Set colors for buttons */
-  .edit-banner-section button {
-    color: var(--interactive-editor-color);
-    border-color: var(--interactive-editor-color);
-    background: var(--interactive-editor-background);
-    &:hover:not(.disallowed) {
-      color: var(--interactive-editor-background);
-      border-color: var(--interactive-editor-color);
-      background: var(--interactive-editor-color);
+
+  &.edit-config-buttons-container {
+    grid-template-columns: repeat(3, 1fr);
+    p.section-sub-title { grid-column-start: span 3; }
+  }
+  &.save-buttons-container {
+    grid-row-start: span 1;
+    grid-template-columns: repeat(2, 1fr);
+    p.section-sub-title { grid-column-start: span 2; }
+  }
+}
+
+@include tablet-down {
+  div.edit-mode-bottom-banner {
+    display: flex;
+    flex-direction: column;
+    .edit-banner-section {
+      max-width: 90%;
+      width: 100%;
+      margin: 0.1rem auto;
     }
   }
 }

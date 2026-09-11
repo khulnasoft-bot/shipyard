@@ -6,6 +6,8 @@
     <router-view v-if="!isFetching" />
     <CriticalError v-if="hasCriticalError" />
     <Footer :text="footerText" v-if="visibleComponents.footer && !isFetching" />
+    <DesignModeInspector v-if="isEditMode" @close="toggleDesignMode" />
+    <DesignModeToolbar v-if="isEditMode" />
   </div>
 </template>
 <script>
@@ -15,6 +17,8 @@ import Footer from '@/components/PageStrcture/Footer.vue';
 import EditModeTopBanner from '@/components/InteractiveEditor/EditModeTopBanner.vue';
 import CriticalError from '@/components/PageStrcture/CriticalError.vue';
 import LoadingScreen from '@/components/PageStrcture/LoadingScreen.vue';
+import DesignModeInspector from '@/components/InteractiveEditor/DesignModeInspector.vue';
+import DesignModeToolbar from '@/components/InteractiveEditor/DesignModeToolbar.vue';
 import { welcomeMsg } from '@/utils/CoolConsole';
 import ErrorHandler from '@/utils/ErrorHandler';
 import Keys from '@/utils/StoreMutations';
@@ -32,6 +36,8 @@ export default {
     LoadingScreen,
     EditModeTopBanner,
     CriticalError,
+    DesignModeInspector,
+    DesignModeToolbar,
   },
   data() {
     return {
@@ -95,6 +101,9 @@ export default {
     },
   },
   methods: {
+    toggleDesignMode() {
+      this.$store.commit(Keys.SET_EDIT_MODE, false);
+    },
     /* Injects the users custom CSS as a style tag */
     injectCustomStyles(usersCss) {
       const style = document.createElement('style');
