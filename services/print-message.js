@@ -38,13 +38,7 @@ module.exports = (ip, port, isDocker) => {
       + `┗${line(75)}┛${chars.BR}${chars.BR}${chars.RESET}`;
   }
   // Make some sexy ascii art ;)
-  const ascii = `${chars.CYAN}\n\n`
-    + ' ██████╗  █████╗ ███████╗██╗  ██╗██╗   ██╗\n'
-    + ' ██╔══██╗██╔══██╗██╔════╝██║  ██║╚██╗ ██╔╝\n'
-    + ' ██║  ██║███████║███████╗███████║ ╚████╔╝\n'
-    + ' ██║  ██║██╔══██║╚════██║██╔══██║  ╚██╔╝\n'
-    + ' ██████╔╝██║  ██║███████║██║  ██║   ██║\n'
-    + ` ╚═════╝ ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝   ╚═╝\n${chars.RESET}\n`;
+  const ascii = ``;
 
   return ascii + msg;
 };
