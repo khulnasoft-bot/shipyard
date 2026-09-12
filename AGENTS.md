@@ -66,11 +66,14 @@
 - Check card dimensions, spacing, border radius consistency
 - Verify color palette matches design tokens exactly
 
-### Component-Specific Cleanup (may be complete)
-- Most components already use CSS variables from `color-palette.scss`
-- `src/components/Configuration/ConfigContainer.vue` — uses `--config-settings-*` variables
-- `src/components/Configuration/CloudBackupRestore.vue` — uses `--cloud-backup-*` variables
-- `src/components/Settings/ThemeSelector.vue` — uses `--settings-text-color` variable
+### Component-Specific Cleanup ✅
+- All remaining components already use CSS variables from `color-palette.scss`
+- `src/views/404.vue` — fixed hardcoded colors -> CSS variables
+- `src/views/Minimal.vue` — fixed hardcoded colors -> CSS variables
+- `src/views/Home.vue` — fixed hardcoded colors -> CSS variables
+- `src/components/Workspace/SideBarSection.vue` — fixed hardcoded colors -> CSS variables
+- `src/components/Widgets/WidgetBase.vue` — fixed hardcoded colors -> CSS variables
+- All other components use CSS variables or theme-specific variables
 - `src/components/Settings/LanguageSwitcher.vue` — uses existing theme variables
 - `src/components/Settings/CustomThemeMaker.vue` — uses existing theme variables
 - `src/components/FormElements/Select.vue` — uses `--primary`, `--background` variables
