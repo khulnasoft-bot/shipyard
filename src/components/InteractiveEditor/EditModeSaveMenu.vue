@@ -155,6 +155,7 @@ export default {
       });
     },
     saveLocally() {
+      // eslint-disable-next-line no-alert
       const msg = this.$t('interactive-editor.menu.save-locally-warning');
       const confirmed = window.confirm(msg);
       if (confirmed) { this.saveConfigLocally(this.config); }

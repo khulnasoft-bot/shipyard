@@ -10,6 +10,7 @@ Vue.config.silent = true;
 
 // Suppress noisy console methods in test output
 // Vue dev mode prints info messages (devtools, production tips) that clutter results
+// eslint-disable-next-line no-console
 global.console = {
   ...console,
   info: vi.fn(),
