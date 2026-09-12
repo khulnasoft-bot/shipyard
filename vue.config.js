@@ -7,7 +7,7 @@ process.env.VUE_APP_VERSION = require('./package.json').version;
 
 const { pwa } = require('./src/utils/defaults');
 
-const publicPath = process.env.BASE_URL || '/';
+const publicPath = process.env.BASE_URL || './';
 const integrity = process.env.INTEGRITY === 'true';
 const isServer = process.env.IS_DOCKER || process.env.IS_SERVER || false;
 
