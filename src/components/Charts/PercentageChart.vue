@@ -108,10 +108,10 @@ export default {
       position: absolute;
       width: 30%;
       height: 100%;
-      box-shadow: inset 0px -1px 2px #000000bf;
-      &:hover {
-        box-shadow: inset 0px -1px 4px #000000bf;
-      }
+box-shadow: inset 0px -1px 2px rgba(0, 0, 0, 0.75);
+       &:hover {
+         box-shadow: inset 0px -1px 4px rgba(0, 0, 0, 0.75);
+       }
     }
   }
   // Chart Legend

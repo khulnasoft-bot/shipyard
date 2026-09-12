@@ -112,8 +112,8 @@ export default {
   z-index: 6;
   border-radius: 12px;
   border: 1px solid var(--welcome-popup-background);
-  -webkit-box-shadow: 2px 1px 5px #130f23;
-  box-shadow: 2px 1px 5px #130f23;
+-webkit-box-shadow: 2px 1px 5px var(--background-darker);
+    box-shadow: 2px 1px 5px var(--background-darker);
   border: 1px solid var(--welcome-popup-text-color);
   color: var(--welcome-popup-text-color);
   background: var(--welcome-popup-background);

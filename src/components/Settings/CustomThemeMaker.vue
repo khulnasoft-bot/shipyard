@@ -271,10 +271,10 @@ div.theme-configurator-wrapper {
     font-weight: bold;
     cursor: pointer;
     &:hover {
-      box-shadow: inset 0 0 4px 4px #00000033;
+      box-shadow: inset 0 0 4px 4px rgba(0, 0, 0, 0.2);
     }
     &:active {
-      box-shadow: inset 0 0 4px 4px #00000080;
+      box-shadow: inset 0 0 4px 4px rgba(0, 0, 0, 0.5);
       outline: none;
     }
     &.long-input {

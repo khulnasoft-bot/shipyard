@@ -117,7 +117,7 @@ label.toggle-switch {
     }
     &::after {
       background: var(--off-color);
-      box-shadow: 0 0 1px #666;
+      box-shadow: 0 0 1px var(--text-muted);
     }
     &::before {
       background: var(--off-color);
