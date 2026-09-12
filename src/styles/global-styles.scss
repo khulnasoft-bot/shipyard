@@ -39,17 +39,99 @@ html {
   background: var(--highlight-background, var(--primary));
 }
 
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    scroll-behavior: auto !important;
-    transition-duration: .01ms !important;
-    animation-duration: .01ms !important;
-    animation-iteration-count: 1 !important;
+/* Screen reader only text */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Enhanced focus indicators for all interactive elements */
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+a:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--focus-ring, var(--primary));
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
+}
+
+/* Focus within for containers */
+*:focus-within {
+  outline: none;
+}
+
+/* Skip to content link */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  padding: 0.5rem 1rem;
+  background: var(--primary);
+  color: var(--background);
+  font-weight: 700;
+  border-radius: var(--curve-factor);
+  text-decoration: none;
+  &:focus {
+    top: 0.5rem;
   }
 }
 
-@media (max-width: 640px) {
-  html { font-size: .9375rem; }
+/* Reduced motion for all animations */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .design-mode-toolbar,
+  .design-mode-inspector,
+  .design-mode-top-banner {
+    transition: none !important;
+  }
+}
+
+/* High contrast mode support */
+@media (forced-colors: active) {
+  :focus-visible {
+    outline: 3px solid CanvasText;
+  }
+  .item {
+    border: 1px solid ButtonText !important;
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  button, input, select, textarea, a {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Responsive base font scaling */
+@media (max-width: 480px) {
+  html { font-size: 14px; }
+}
+@media (min-width: 481px) and (max-width: 768px) {
+  html { font-size: 15px; }
+}
+@media (min-width: 769px) and (max-width: 1024px) {
+  html { font-size: 16px; }
+}
+@media (min-width: 1025px) {
+  html { font-size: 16px; }
 }
 
 /* Hide text, and show 'Loading...' while Vue is initializing tags */

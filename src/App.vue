@@ -1,9 +1,12 @@
 <template>
   <div id="shipyard" :style="topLevelStyleModifications" :class="subPageClassName">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <EditModeTopBanner v-if="isEditMode" />
     <LoadingScreen :isLoading="isLoading" v-if="shouldShowSplash" />
     <Header :pageInfo="pageInfo" />
-    <router-view v-if="!isFetching" />
+    <main id="main-content">
+      <router-view v-if="!isFetching" />
+    </main>
     <CriticalError v-if="hasCriticalError" />
     <Footer :text="footerText" v-if="visibleComponents.footer && !isFetching" />
     <DesignModeInspector v-if="isEditMode" @close="toggleDesignMode" />
