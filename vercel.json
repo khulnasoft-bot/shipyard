@@ -1,0 +1,26 @@
+{
+  "buildCommand": "NODE_OPTIONS=--openssl-legacy-provider npx vue-cli-service build",
+  "devCommand": "NODE_OPTIONS=--openssl-legacy-provider npx vue-cli-service serve",
+  "installCommand": "yarn install --ignore-engines",
+  "framework": "vue",
+  "regions": ["iad1", "sfo1"],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    }
+  ]
+}
