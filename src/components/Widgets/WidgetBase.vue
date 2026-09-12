@@ -253,7 +253,7 @@ export default {
       cursor: not-allowed;
       opacity: 0.5;
       border-radius: var(--curve-factor);
-      background: #ffff0040;
+      background: var(--warning);
 
       &:hover { background: none; }
     }

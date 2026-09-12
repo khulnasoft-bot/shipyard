@@ -62,7 +62,7 @@ div.sub-side-bar {
   .sub-item-group {
     border: 1px dotted var(--side-bar-color);
     border-radius: 4px;
-    background: #00000033;
+    background: var(--background-darker);
   }
 }
 

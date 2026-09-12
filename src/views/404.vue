@@ -39,15 +39,14 @@ main.not-found-page {
   justify-content: flex-start;
   align-items: center;
   cursor: default;
-  background: #202020;
+  background: var(--background-darker);
   min-height: calc(99vh - var(--footer-height));
-  background-color: #202020;
   h1.not-found-title, h2.not-found-sad-face {
     font-size: 20vh;
     font-family: Tahoma, monospace;
     cursor: default;
-    color: #0c0c0c;
-    text-shadow: 0px 4px 4px #090909, 0 0 0 #000, 0px 2px 2px #000000;
+    color: var(--text-primary);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
     margin: 1rem 0 0;
   }
   h2.not-found-sad-face {
@@ -57,9 +56,9 @@ main.not-found-page {
   p {
     font-family: monospace;
     cursor: default;
-    color: #0c0c0c;
+    color: var(--text-secondary);
     margin: 0.2rem 0;
-    text-shadow: 0 1px 1px #090909, 0 0 0 #000, 0 1px 1px #000000;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
   }
   p.not-found-subtitle {
     font-size: 2.8rem;
@@ -68,23 +67,23 @@ main.not-found-page {
     font-size: 1.4rem;
     font-weight: normal;
     a {
-      color: #0c0c0c;
+      color: var(--primary);
       font-family: monospace;
     }
   }
   a.go-home {
     padding: 0.3rem 1rem;
-    border-radius: 3px;
+    border-radius: var(--curve-factor);
     font-size: 1.7rem;
     cursor: pointer;
     font-family: Tahoma, monospace;
-    color: #0c0c0c;
+    color: var(--background);
     margin: 2rem 0 0;
     text-decoration: none;
-    background: #db78fc;
-    box-shadow: 0 4px #b83ddd;
-    &:hover { box-shadow: 0 2px #b83ddd; }
+    background: var(--primary);
+    box-shadow: 0 4px var(--accent-glow);
+    &:hover { box-shadow: 0 2px var(--accent-glow); }
   }
-  ::selection { background-color: #db78fc; color: #121212; }
+  ::selection { background-color: var(--primary); color: var(--background); }
 }
 </style>

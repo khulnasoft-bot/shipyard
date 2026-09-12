@@ -174,7 +174,7 @@ export default {
 .no-data {
     font-size: 2rem;
     color: var(--minimal-view-background-color);
-    background: #ffffffeb;
+    background: var(--surface-elevated);
     width: fit-content;
     margin: 2rem auto;
     padding: 0.5rem 1rem;
